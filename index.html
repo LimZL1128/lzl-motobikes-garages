@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LZL Motobikes Garages</title>
+
+<style>
+:root {
+    --bg: #05070b;
+    --panel: #0b1018;
+    --panel2: #101722;
+    --line: rgba(255,255,255,.1);
+    --text: #f4f7fb;
+    --muted: #8792a4;
+    --blue: #6366f1;
+    --cyan: #22d3ee;
+    --red: #ef3340;
+    --green: #22c55e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 80% 10%, rgba(99,102,241,.14), transparent 32rem),
+        radial-gradient(circle at 10% 50%, rgba(34,211,238,.06), transparent 30rem),
+        var(--bg);
+    font-family: Inter, Arial, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-height: 74px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    background: rgba(5,7,11,.86);
+    backdrop-filter: blur(20px);
+}
+
+.logo {
+    color: white;
+    font-size: 1.35rem;
+    font-weight: 950;
+    letter-spacing: .16em;
+}
+
+.logo small {
+    display: block;
+    margin-top: 5px;
+    color: var(--cyan);
+    font-size: .48rem;
+    letter-spacing: .32em;
+}
+
+nav {
+    display: flex;
+    gap: 28px;
+}
+
+nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .15em;
+}
+
+nav a:hover {
+    color: white;
+}
+
+.admin-btn {
+    padding: 10px 15px;
+    border: 1px solid rgba(239,51,64,.45);
+    border-radius: 7px;
+    color: #ff7b85;
+    background: rgba(239,51,64,.06);
+    font-size: .62rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 680px;
+    padding: 110px 7%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero:after {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    right: -120px;
+    top: 30px;
+    border-radius: 50%;
+    background: rgba(99,102,241,.09);
+    filter: blur(100px);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 780px;
+}
+
+.eyebrow {
+    color: var(--cyan);
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .3em;
+}
+
+.hero h1 {
+    margin-top: 18px;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: .82;
+    letter-spacing: -.07em;
+    font-weight: 950;
+}
+
+.hero h1 span {
+    display: block;
+    color: transparent;
+    background: linear-gradient(110deg,#fff,#aeb8c6,#6366f1,#22d3ee);
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.hero p {
+    margin-top: 28px;
+    color: #aeb8c6;
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .28em;
+}
+
+.search {
+    margin-top: 38px;
+    width: min(700px,100%);
+    height: 62px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    border: 1px solid rgba(99,102,241,.4);
+    border-radius: 13px;
+    background: rgba(13,20,32,.9);
+    box-shadow: 0 0 40px rgba(99,102,241,.1);
+}
+
+.search span {
+    margin-right: 13px;
+    color: var(--cyan);
+    font-size: 1.5rem;
+}
+
+.search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    color: white;
+    background: transparent;
+}
+
+.search input::placeholder {
+    color: #697386;
+}
+
+.telemetry {
+    margin-top: 55px;
+    display: flex;
+}
+
+.telemetry div {
+    min-width: 120px;
+    padding: 13px 18px;
+    border-left: 1px solid var(--line);
+}
+
+.telemetry span {
+    display: block;
+    color: var(--muted);
+    font-size: .5rem;
+    font-weight: 900;
+    letter-spacing: .15em;
+}
+
+.telemetry strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.2rem;
+}
+
+/* CATALOG */
+
+.catalog {
+    width: min(1440px, calc(100% - 40px));
+    margin: auto;
+    padding: 90px 0;
+}
+
+.heading {
+    margin-bottom: 38px;
+}
+
+.heading small {
+    color: var(--cyan);
+    font-size: .65rem;
+    font-weight: 900;
+    letter-spacing: .25em;
+}
+
+.heading h2 {
+    margin-top: 10px;
+    font-size: clamp(2.5rem,6vw,5rem);
+    line-height: .9;
+    letter-spacing: -.06em;
+}
+
+.heading h2 span {
+    color: transparent;
+    background: linear-gradient(90deg,var(--blue),var(--cyan));
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/* FILTERS */
+
+.filters {
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(13,20,32,.78);
+}
+
+.filter-title {
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: .55rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.filter-row:last-child {
+    margin-bottom: 0;
+}
+
+.filter {
+    padding: 10px 13px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: #929daf;
+    background: rgba(255,255,255,.025);
+    font-size: .58rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.filter.active,
+.filter:hover {
+    color: white;
+    border-color: rgba(99,102,241,.65);
+    background: rgba(99,102,241,.14);
+}
+
+.toolbar {
+    padding: 25px 3px 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toolbar p {
+    color: var(--muted);
+    font-size: .7rem;
+}
+
+.sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort span {
+    color: var(--muted);
+    font-size: .55rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+
+.sort select {
+    min-height: 36px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: white;
+    background: var(--panel);
+}
+
+/* GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(290px,1fr));
+    gap: 18px;
+}
+
+.card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(145deg,#111a29,#070a10);
+    transition: .2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(99,102,241,.55);
+    box-shadow: 0 25px 65px rgba(0,0,0,.4);
+}
+
+.card-image {
+    position: relative;
+    aspect-ratio: 16/10;
+    background: #090d15;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 6px 8px;
+    border: 1px solid rgba(34,211,238,.25);
+    border-radius: 5px;
+    color: var(--cyan);
+    background: rgba(3,5,10,.75);
+    font-size: .5rem;
+    font-weight: 900;
+}
+
+.card-body {
+    padding: 18px;
+}
+
+.brand {
+    color: #818cf8;
+    font-size: .55rem;
+    font-weight: 900;
+    letter-spacing: .2em;
+}
+
+.card h3 {
+    margin-top: 6px;
+    font-size: 1.3rem;
+}
+
+.engine {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: .68rem;
+}
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    margin-top: 18px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.spec {
+    padding: 12px 7px;
+    border-right: 1px solid var(--line);
+}
+
+.spec:last-child {
+    border-right: 0;
+}
+
+.spec span {
+    display: block;
+    color: var(--muted);
+    font-size: .45rem;
+    font-weight: 900;
+}
+
+.spec strong {
+    display: block;
+    margin-top: 4px;
+    color: #c1c9d6;
+    font-size: .7rem;
+}
+
+.view {
+    width: 100%;
+    margin-top: 14px;
+    min-height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: white;
+    background: rgba(255,255,255,.03);
+    font-size: .58rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+
+.view:hover {
+    border-color: #818cf8;
+    background: rgba(99,102,241,.12);
+}
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(10px);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: min(1050px,100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    border: 1px solid rgba(99,102,241,.4);
+    border-radius: 18px;
+    background: #080d16;
+    box-shadow: 0 40px 120px rgba(0,0,0,.8);
+}
+
+.modal-head {
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+}
+
+.modal-head h2 {
+    font-size: 1rem;
+    letter-spacing: .12em;
+}
+
+.close {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: white;
+    background: transparent;
+    font-size: 1.2rem;
+}
+
+.modal-content {
+    padding: 25px;
+}
+
+.detail-top {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 25px;
+}
+
+.detail-image {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #080b12;
+}
+
+.detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.detail-info h2 {
+    margin-top: 8px;
+    font-size: clamp(2rem,4vw,4rem);
+    line-height: .95;
+}
+
+.detail-info p {
+    margin-top: 20px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: .8rem;
+}
+
+.detail-stats {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 1px;
+    margin-top: 25px;
+    background: var(--line);
+}
+
+.detail-stat {
+    padding: 14px;
+    background: #080d16;
+}
+
+.detail-stat span {
+    color: var(--muted);
+    font-size: .48rem;
+}
+
+.detail-stat strong {
+    display: block;
+    margin-top: 5px;
+}
+
+.detail-specs {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 1px;
+    margin-top: 25px;
+    background: var(--line);
+}
+
+.detail-spec {
+    padding: 15px;
+    background: #090f19;
+}
+
+.detail-spec span {
+    display: block;
+    color: var(--muted);
+    font-size: .48rem;
+}
+
+.detail-spec strong {
+    display: block;
+    margin-top: 5px;
+    font-size: .75rem;
+}
+
+/* LOGIN */
+
+.login-box {
+    width: min(430px,100%);
+    padding: 30px;
+    border: 1px solid rgba(99,102,241,.4);
+    border-radius: 16px;
+    background: #0a101a;
+}
+
+.login-box h2 {
+    font-size: 1.7rem;
+}
+
+.login-box p {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: .75rem;
+}
+
+.field {
+    margin-top: 16px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--muted);
+    font-size: .55rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+}
+
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    outline: 0;
+    color: white;
+    background: #060a11;
+}
+
+.field textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.login-submit,
+.save-btn,
+.add-btn {
+    width: 100%;
+    margin-top: 18px;
+    min-height: 45px;
+    border: 0;
+    border-radius: 7px;
+    color: white;
+    background: linear-gradient(135deg,#4f46e5,#6366f1);
+    font-weight: 900;
+    letter-spacing: .1em;
+}
+
+.error {
+    margin-top: 12px;
+    color: #ff6974;
+    font-size: .7rem;
+}
+
+/* ADMIN */
+
+.admin-panel {
+    width: min(1200px,100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 25px;
+    border: 1px solid rgba(99,102,241,.4);
+    border-radius: 18px;
+    background: #080d16;
+}
+
+.admin-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.admin-top h2 {
+    font-size: 1.4rem;
+}
+
+.logout {
+    padding: 9px 14px;
+    border: 1px solid rgba(239,51,64,.4);
+    border-radius: 6px;
+    color: #ff7580;
+    background: transparent;
+    font-size: .6rem;
+    font-weight: 900;
+}
+
+.admin-list {
+    display: grid;
+    gap: 10px;
+}
+
+.admin-item {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 15px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #0b111b;
+}
+
+.admin-item img {
+    width: 70px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.admin-item strong {
+    display: block;
+}
+
+.admin-item small {
+    color: var(--muted);
+}
+
+.edit-btn {
+    padding: 9px 13px;
+    border: 1px solid rgba(99,102,241,.4);
+    border-radius: 6px;
+    color: white;
+    background: rgba(99,102,241,.1);
+    font-size: .58rem;
+    font-weight: 900;
+}
+
+/* EDITOR */
+
+.editor-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 14px;
+}
+
+.editor-full {
+    grid-column: 1/-1;
+}
+
+.editor-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.editor-actions button {
+    flex: 1;
+}
+
+.delete-btn {
+    min-height: 45px;
+    margin-top: 18px;
+    border: 1px solid rgba(239,51,64,.5);
+    border-radius: 7px;
+    color: #ff6974;
+    background: rgba(239,51,64,.06);
+    font-weight: 900;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 35px 6%;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .58rem;
+    letter-spacing: .12em;
+}
+
+/* MOBILE */
+
+@media(max-width:800px) {
+    nav {
+        display: none;
+    }
+
+    .hero {
+        min-height: 650px;
+        padding: 90px 20px;
+    }
+
+    .hero h1 {
+        font-size: clamp(3.7rem,18vw,6rem);
+    }
+
+    .hero p {
+        line-height: 1.6;
+    }
+
+    .telemetry {
+        margin-top: 40px;
+    }
+
+    .telemetry div {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .catalog {
+        width: calc(100% - 28px);
+    }
+
+    .toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .sort {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .sort select {
+        flex: 1;
+    }
+
+    .detail-top {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-specs {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .editor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .editor-full {
+        grid-column: auto;
+    }
+}
+
+@media(max-width:500px) {
+    .admin-item {
+        grid-template-columns: 55px 1fr;
+    }
+
+    .admin-item img {
+        width: 55px;
+        height: 45px;
+    }
+
+    .admin-item button {
+        grid-column: 2;
+    }
+
+    .detail-specs {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a class="logo" href="#">
+        LZL
+        <small>MOTOBIKES GARAGES</small>
+    </a>
+
+    <nav>
+        <a href="#catalog">CATALOG</a>
+        <a href="#about">ABOUT</a>
+    </nav>
+
+    <button class="admin-btn" id="adminButton">
+        ADMIN PANEL
+    </button>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="eyebrow">LZL MOTOBIKES GARAGES</div>
+
+        <h1>
+            RIDE
+            <span>DIFFERENT.</span>
+        </h1>
+
+        <p>
+            SPORTBIKES • SPECIFICATIONS • PERFORMANCE
+        </p>
+
+        <div class="search">
+            <span>⌕</span>
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="SEARCH MOTORCYCLES..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="telemetry">
+            <div>
+                <span>MOTORCYCLES</span>
+                <strong id="heroCount">00</strong>
+            </div>
+
+            <div>
+                <span>BRANDS</span>
+                <strong id="brandCount">00</strong>
+            </div>
+
+            <div>
+                <span>CLASS</span>
+                <strong>150CC+</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main id="catalog" class="catalog">
+
+    <div class="heading">
+        <small>THE COLLECTION</small>
+        <h2>
+            FIND YOUR
+            <span>MACHINE.</span>
+        </h2>
+    </div>
+
+    <div class="filters">
+
+        <div class="filter-title">ENGINE CLASS</div>
+
+        <div class="filter-row" id="engineFilters">
+            <button class="filter active" data-engine="all">ALL</button>
+            <button class="filter" data-engine="under250">UNDER 250CC</button>
+            <button class="filter" data-engine="250to699">250 TO 699CC</button>
+            <button class="filter" data-engine="700to999">700 TO 999CC</button>
+            <button class="filter" data-engine="1000plus">1000CC+</button>
+        </div>
+
+        <div class="filter-title">MANUFACTURER</div>
+
+        <div class="filter-row" id="brandFilters">
+            <button class="filter active" data-brand="all">ALL</button>
+        </div>
+
+    </div>
+
+    <div class="toolbar">
+        <p id="resultCount">0 motorcycles found</p>
+
+        <div class="sort">
+            <span>SORT</span>
+            <select id="sortSelect">
+                <option value="default">DEFAULT</option>
+                <option value="name">NAME</option>
+                <option value="engine-low">ENGINE LOW TO HIGH</option>
+                <option value="engine-high">ENGINE HIGH TO LOW</option>
+                <option value="power-high">POWER HIGH TO LOW</option>
+                <option value="speed-high">TOP SPEED HIGH TO LOW</option>
+            </select>
+        </div>
+    </div>
+
+    <section class="grid" id="motorcycleGrid"></section>
+
+</main>
+
+<section id="about" class="catalog">
+    <div class="heading">
+        <small>ABOUT LZL</small>
+        <h2>
+            BUILT FOR
+            <span>BIKE PEOPLE.</span>
+        </h2>
+        <p style="max-width:650px;margin-top:25px;color:#8792a4;line-height:1.8;">
+            LZL Motobikes Garages is a motorcycle catalogue focused on sportbikes,
+            specifications, performance figures, and clean comparison tools.
+        </p>
+    </div>
+</section>
+
+<footer>
+    LZL MOTOBIKES GARAGES • MOTORCYCLE CATALOGUE
+</footer>
+
+<!-- BIKE DETAILS -->
+
+<div class="modal" id="detailsModal">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h2>BIKE SPECIFICATIONS</h2>
+            <button class="close" onclick="closeModal('detailsModal')">×</button>
+        </div>
+
+        <div class="modal-content" id="detailsContent"></div>
+    </div>
+</div>
+
+<!-- LOGIN -->
+
+<div class="modal" id="loginModal">
+    <div class="login-box">
+
+        <div class="modal-head" style="padding:0 0 20px;border:0;">
+            <h2>ADMIN LOGIN</h2>
+            <button class="close" onclick="closeModal('loginModal')">×</button>
+        </div>
+
+        <p>Sign in with your Firebase administrator account.</p>
+
+        <form id="loginForm">
+
+            <div class="field">
+                <label>EMAIL</label>
+                <input
+                    id="loginEmail"
+                    type="email"
+                    required
+                    autocomplete="email"
+                    placeholder="admin@email.com"
+                >
+            </div>
+
+            <div class="field">
+                <label>PASSWORD</label>
+                <input
+                    id="loginPassword"
+                    type="password"
+                    required
+                    autocomplete="current-password"
+                    placeholder="Password"
+                >
+            </div>
+
+            <button class="login-submit" type="submit">
+                LOGIN
+            </button>
+
+            <div class="error" id="loginError"></div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- ADMIN -->
+
+<div class="modal" id="adminModal">
+
+    <div class="admin-panel">
+
+        <div class="admin-top">
+            <div>
+                <h2>LZL ADMIN PANEL</h2>
+                <p style="color:#8792a4;font-size:.65rem;margin-top:5px;">
+                    Motorcycle catalogue management
+                </p>
+            </div>
+
+            <button class="logout" id="logoutButton">
+                LOGOUT
+            </button>
+        </div>
+
+        <button class="add-btn" id="addBikeButton">
+            + ADD MOTORCYCLE
+        </button>
+
+        <div class="admin-list" id="adminList" style="margin-top:20px;"></div>
+
+    </div>
+
+</div>
+
+<!-- EDITOR -->
+
+<div class="modal" id="editorModal">
+
+    <div class="admin-panel">
+
+        <div class="admin-top">
+            <h2 id="editorTitle">EDIT MOTORCYCLE</h2>
+            <button class="close" onclick="closeModal('editorModal')">×</button>
+        </div>
+
+        <form id="editorForm">
+
+            <div class="editor-grid">
+
+                <div class="field">
+                    <label>BRAND</label>
+                    <input id="fBrand" required>
+                </div>
+
+                <div class="field">
+                    <label>MODEL NAME</label>
+                    <input id="fName" required>
+                </div>
+
+                <div class="field">
+                    <label>YEAR</label>
+                    <input id="fYear" type="number" required>
+                </div>
+
+                <div class="field">
+                    <label>ENGINE CC</label>
+                    <input id="fEngine" type="number" required>
+                </div>
+
+                <div class="field">
+                    <label>TYPE</label>
+                    <input id="fType" placeholder="Supersport">
+                </div>
+
+                <div class="field">
+                    <label>POWER</label>
+                    <input id="fPower" placeholder="100 HP">
+                </div>
+
+                <div class="field">
+                    <label>TORQUE</label>
+                    <input id="fTorque" placeholder="100 Nm">
+                </div>
+
+                <div class="field">
+                    <label>TOP SPEED</label>
+                    <input id="fSpeed" placeholder="299 km/h">
+                </div>
+
+                <div class="field">
+                    <label>WEIGHT</label>
+                    <input id="fWeight" placeholder="200 kg">
+                </div>
+
+                <div class="field">
+                    <label>FUEL CAPACITY</label>
+                    <input id="fFuel" placeholder="17 L">
+                </div>
+
+                <div class="field">
+                    <label>TRANSMISSION</label>
+                    <input id="fTransmission" placeholder="6 speed">
+                </div>
+
+                <div class="field">
+                    <label>COOLING</label>
+                    <input id="fCooling" placeholder="Liquid cooled">
+                </div>
+
+                <div class="field">
+                    <label>OIL CAPACITY</label>
+                    <input id="fOil" placeholder="3.5 L">
+                </div>
+
+                <div class="field">
+                    <label>COLOR</label>
+                    <input id="fColor" placeholder="Kawasaki Green">
+                </div>
+
+                <div class="field editor-full">
+                    <label>IMAGE URL</label>
+                    <input
+                        id="fImage"
+                        placeholder="https://..."
+                    >
+                </div>
+
+                <div class="field editor-full">
+                    <label>DESCRIPTION</label>
+                    <textarea id="fDescription"></textarea>
+                </div>
+
+            </div>
+
+            <div class="editor-actions">
+
+                <button
+                    class="save-btn"
+                    type="submit"
+                >
+                    SAVE CHANGES
+                </button>
+
+                <button
+                    class="delete-btn"
+                    type="button"
+                    id="deleteButton"
+                >
+                    DELETE
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCA9f7Wx7HyhPG5ywWno1Ho8sDek-oZy8s",
+    authDomain: "lzl-motobike-garage.firebaseapp.com",
+    projectId: "lzl-motobike-garage",
+    storageBucket: "lzl-motobike-garage.firebasestorage.app",
+    messagingSenderId: "355689295435",
+    appId: "1:355689295435:web:991356218a289ca45c67ce",
+    measurementId: "G-QNVFWFWETX"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const ADMIN_EMAIL = "limzl2610@gmail.com";
+
+const defaultBikes = [
+
+{
+id:"yamaha-r15",
+brand:"Yamaha",
+name:"YZF-R15",
+year:2026,
+engine:155,
+type:"Supersport",
+power:"18.4 HP",
+torque:"14.2 Nm",
+speed:"145 km/h",
+weight:"141 kg",
+fuel:"11 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"1.0 L",
+color:"Yamaha Blue",
+image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=85",
+description:"A lightweight Yamaha sportbike designed for everyday riding and sharp handling."
+},
+
+{
+id:"yamaha-r15m",
+brand:"Yamaha",
+name:"R15M",
+year:2026,
+engine:155,
+type:"Supersport",
+power:"18.4 HP",
+torque:"14.2 Nm",
+speed:"145 km/h",
+weight:"141 kg",
+fuel:"11 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"1.0 L",
+color:"Yamaha Black",
+image:"https://images.unsplash.com/photo-1558980664-10ea4f7a5f1b?auto=format&fit=crop&w=1200&q=85",
+description:"A premium R series sportbike with aggressive styling and compact dimensions."
+},
+
+{
+id:"honda-cbr150r",
+brand:"Honda",
+name:"CBR150R",
+year:2026,
+engine:149,
+type:"Supersport",
+power:"17.1 HP",
+torque:"14.4 Nm",
+speed:"135 km/h",
+weight:"139 kg",
+fuel:"12 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"1.3 L",
+color:"Honda Red",
+image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1200&q=85",
+description:"Honda's compact CBR combines accessible performance with full sportbike styling."
+},
+
+{
+id:"suzuki-gsxr150",
+brand:"Suzuki",
+name:"GSX-R150",
+year:2026,
+engine:147,
+type:"Supersport",
+power:"19.2 HP",
+torque:"14.0 Nm",
+speed:"150 km/h",
+weight:"131 kg",
+fuel:"11 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"1.5 L",
+color:"Suzuki Blue",
+image:"https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=1200&q=85",
+description:"A lightweight Suzuki sportbike focused on low mass and responsive handling."
+},
+
+{
+id:"kawasaki-zx25rr",
+brand:"Kawasaki",
+name:"Ninja ZX-25RR",
+year:2026,
+engine:249,
+type:"Supersport",
+power:"44.3 HP",
+torque:"22 Nm",
+speed:"190 km/h",
+weight:"184 kg",
+fuel:"15 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"2.2 L",
+color:"Kawasaki Lime Green",
+image:"https://images.unsplash.com/photo-1615172282427-9a57ef2d142e?auto=format&fit=crop&w=1200&q=85",
+description:"A high revving quarter litre four cylinder Kawasaki supersport."
+},
+
+{
+id:"honda-cbr250rr",
+brand:"Honda",
+name:"CBR250RR",
+year:2026,
+engine:249,
+type:"Supersport",
+power:"42 HP",
+torque:"25 Nm",
+speed:"180 km/h",
+weight:"168 kg",
+fuel:"14.5 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"2.4 L",
+color:"Honda Red",
+image:"https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&w=1200&q=85",
+description:"Honda's high revving twin cylinder CBR delivers sharp styling and strong performance."
+},
+
+{
+id:"yamaha-r25",
+brand:"Yamaha",
+name:"YZF-R25",
+year:2026,
+engine:249,
+type:"Supersport",
+power:"35 HP",
+torque:"23.6 Nm",
+speed:"170 km/h",
+weight:"169 kg",
+fuel:"14 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"2.4 L",
+color:"Yamaha Blue",
+image:"https://images.unsplash.com/photo-1558980394-0c7c5d6b1f1c?auto=format&fit=crop&w=1200&q=85",
+description:"A parallel twin Yamaha sportbike designed for approachable road performance."
+},
+
+{
+id:"kawasaki-ninja250",
+brand:"Kawasaki",
+name:"Ninja 250",
+year:2026,
+engine:249,
+type:"Supersport",
+power:"39 HP",
+torque:"23 Nm",
+speed:"170 km/h",
+weight:"166 kg",
+fuel:"14 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"2.0 L",
+color:"Kawasaki Lime Green",
+image:"https://images.unsplash.com/photo-1558981403-c5f9891a2f4b?auto=format&fit=crop&w=1200&q=85",
+description:"A parallel twin Kawasaki sportbike with approachable performance."
+},
+
+{
+id:"kawasaki-zx4rr",
+brand:"Kawasaki",
+name:"Ninja ZX-4RR",
+year:2026,
+engine:399,
+type:"Supersport",
+power:"77 HP",
+torque:"39 Nm",
+speed:"250+ km/h",
+weight:"189 kg",
+fuel:"15 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"2.5 L",
+color:"Kawasaki Lime Green",
+image:"https://images.unsplash.com/photo-1622185135505-2d795003994a?auto=format&fit=crop&w=1200&q=85",
+description:"A high revving four cylinder Kawasaki supersport with race inspired equipment."
+},
+
+{
+id:"ktm-rc390",
+brand:"KTM",
+name:"RC 390",
+year:2026,
+engine:373,
+type:"Supersport",
+power:"43 HP",
+torque:"37 Nm",
+speed:"170 km/h",
+weight:"172 kg",
+fuel:"13.7 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"1.7 L",
+color:"KTM Orange",
+image:"https://images.unsplash.com/photo-1611241443321-7c9f9e4f9e8f?auto=format&fit=crop&w=1200&q=85",
+description:"A lightweight KTM sportbike built around strong single cylinder performance."
+},
+
+{
+id:"aprilia-rs457",
+brand:"Aprilia",
+name:"RS 457",
+year:2026,
+engine:457,
+type:"Supersport",
+power:"47 HP",
+torque:"43.5 Nm",
+speed:"180 km/h",
+weight:"175 kg",
+fuel:"14 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"2.4 L",
+color:"Aprilia Black",
+image:"https://images.unsplash.com/photo-1558980394-0c7c5d6b1f1c?auto=format&fit=crop&w=1200&q=85",
+description:"A modern Aprilia twin cylinder supersport positioned between lightweight and middleweight motorcycles."
+},
+
+{
+id:"honda-cbr500r",
+brand:"Honda",
+name:"CBR500R",
+year:2026,
+engine:471,
+type:"Sport",
+power:"47 HP",
+torque:"43 Nm",
+speed:"185 km/h",
+weight:"191 kg",
+fuel:"17.1 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"3.2 L",
+color:"Honda Red",
+image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1200&q=85",
+description:"A practical Honda middleweight sportbike combining everyday usability with CBR styling."
+},
+
+{
+id:"honda-cbr650r",
+brand:"Honda",
+name:"CBR650R",
+year:2026,
+engine:649,
+type:"Sport",
+power:"94 HP",
+torque:"63 Nm",
+speed:"240 km/h",
+weight:"209 kg",
+fuel:"15.4 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"2.8 L",
+color:"Honda Grand Prix Red",
+image:"https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=1200&q=85",
+description:"A four cylinder Honda middleweight sportbike with a broad road focused powerband."
+},
+
+{
+id:"yamaha-r7",
+brand:"Yamaha",
+name:"YZF-R7",
+year:2026,
+engine:689,
+type:"Supersport",
+power:"73.4 HP",
+torque:"67 Nm",
+speed:"220 km/h",
+weight:"188 kg",
+fuel:"13 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"2.7 L",
+color:"Yamaha Blue",
+image:"https://images.unsplash.com/photo-1558980664-10ea4f7a5f1b?auto=format&fit=crop&w=1200&q=85",
+description:"Yamaha's CP2 powered supersport focuses on torque delivery and chassis balance."
+},
+
+{
+id:"cfmoto-675srr",
+brand:"CFMOTO",
+name:"675SR-R",
+year:2026,
+engine:675,
+type:"Supersport",
+power:"93.8 HP",
+torque:"70 Nm",
+speed:"220 km/h",
+weight:"194 kg",
+fuel:"15 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"3.0 L",
+color:"CFMOTO Blue",
+image:"https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=1200&q=85",
+description:"A three cylinder CFMOTO supersport designed for middleweight performance."
+},
+
+{
+id:"kawasaki-zx10r",
+brand:"Kawasaki",
+name:"Ninja ZX-10R",
+year:2026,
+engine:998,
+type:"Superbike",
+power:"203 HP",
+torque:"114 Nm",
+speed:"299 km/h",
+weight:"207 kg",
+fuel:"17 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"3.7 L",
+color:"Kawasaki Lime Green",
+image:"https://images.unsplash.com/photo-1580310614729-ccd69652491d?auto=format&fit=crop&w=1200&q=85",
+description:"Kawasaki's flagship litre class superbike with advanced electronics and inline four performance."
+},
+
+{
+id:"yamaha-r1",
+brand:"Yamaha",
+name:"YZF-R1",
+year:2026,
+engine:998,
+type:"Superbike",
+power:"200 HP",
+torque:"113 Nm",
+speed:"299 km/h",
+weight:"201 kg",
+fuel:"17 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"3.9 L",
+color:"Yamaha Blue",
+image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=85",
+description:"Yamaha's R1 uses a crossplane four cylinder engine and advanced electronics."
+},
+
+{
+id:"honda-fireblade",
+brand:"Honda",
+name:"CBR1000RR-R Fireblade",
+year:2026,
+engine:999,
+type:"Superbike",
+power:"214 HP",
+torque:"113 Nm",
+speed:"299 km/h",
+weight:"201 kg",
+fuel:"16.1 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"3.5 L",
+color:"Honda Grand Prix Red",
+image:"https://images.unsplash.com/photo-1558980394-0c7c5d6b1f1c?auto=format&fit=crop&w=1200&q=85",
+description:"Honda's Fireblade RR-R is a race focused litre class superbike."
+},
+
+{
+id:"suzuki-gsxr1000r",
+brand:"Suzuki",
+name:"GSX-R1000R",
+year:2026,
+engine:999,
+type:"Superbike",
+power:"199 HP",
+torque:"117 Nm",
+speed:"299 km/h",
+weight:"203 kg",
+fuel:"16 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"3.2 L",
+color:"Suzuki Metallic Blue",
+image:"https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=1200&q=85",
+description:"Suzuki's GSX-R1000R combines four cylinder performance with sophisticated electronics."
+},
+
+{
+id:"bmw-m1000rr",
+brand:"BMW",
+name:"M 1000 RR",
+year:2026,
+engine:999,
+type:"Superbike",
+power:"205 HP",
+torque:"113 Nm",
+speed:"314 km/h",
+weight:"193 kg",
+fuel:"16.5 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"4.0 L",
+color:"BMW Motorsport",
+image:"https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=1200&q=85",
+description:"BMW Motorrad's M 1000 RR is a high specification litre class superbike."
+},
+
+{
+id:"ducati-panigalev4",
+brand:"Ducati",
+name:"Panigale V4",
+year:2026,
+engine:1103,
+type:"Superbike",
+power:"216 HP",
+torque:"120.9 Nm",
+speed:"300+ km/h",
+weight:"191 kg",
+fuel:"17 L",
+transmission:"6 speed",
+cooling:"Liquid cooled",
+oil:"3.4 L",
+color:"Ducati Red",
+image:"https://images.unsplash.com/photo-1558980664-10ea4f7a5f1b?auto=format&fit=crop&w=1200&q=85",
+description:"Ducati's Panigale V4 uses a high performance V4 engine and advanced electronics."
+}
+
+];
+
+let bikes = loadBikes();
+let state = {
+    search:"",
+    engine:"all",
+    brand:"all",
+    sort:"default"
+};
+
+let editingId = null;
+
+function loadBikes() {
+    try {
+        const saved = localStorage.getItem("lzl_bikes");
+
+        if (saved) {
+            const parsed = JSON.parse(saved);
+
+            if (Array.isArray(parsed)) {
+                return parsed;
+            }
+        }
+    } catch(error) {
+        console.error(error);
+    }
+
+    return structuredClone(defaultBikes);
+}
+
+function saveBikes() {
+    localStorage.setItem("lzl_bikes", JSON.stringify(bikes));
+}
+
+function escapeHTML(value) {
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+function category(engine) {
+    engine = Number(engine);
+
+    if (engine < 250) return "under250";
+    if (engine < 700) return "250to699";
+    if (engine < 1000) return "700to999";
+    return "1000plus";
+}
+
+function normalize(value) {
+    return String(value ?? "")
+        .toLowerCase()
+        .replace(/[\s._-]+/g,"");
+}
+
+function matches(bike) {
+
+    if (state.engine !== "all" &&
+        category(bike.engine) !== state.engine) {
+        return false;
+    }
+
+    if (state.brand !== "all" &&
+        bike.brand !== state.brand) {
+        return false;
+    }
+
+    if (!state.search) {
+        return true;
+    }
+
+    const query = normalize(state.search);
+
+    return [
+        bike.brand,
+        bike.name,
+        bike.engine,
+        bike.type,
+        bike.color,
+        bike.description
+    ].some(value => normalize(value).includes(query));
+}
+
+function filteredBikes() {
+
+    const result = bikes.filter(matches);
+
+    switch(state.sort) {
+
+        case "name":
+            result.sort((a,b) =>
+                `${a.brand} ${a.name}`.localeCompare(
+                    `${b.brand} ${b.name}`
+                )
+            );
+            break;
+
+        case "engine-low":
+            result.sort((a,b) => Number(a.engine)-Number(b.engine));
+            break;
+
+        case "engine-high":
+            result.sort((a,b) => Number(b.engine)-Number(a.engine));
+            break;
+
+        case "power-high":
+            result.sort((a,b) =>
+                parseFloat(b.power)-parseFloat(a.power)
+            );
+            break;
+
+        case "speed-high":
+            result.sort((a,b) =>
+                parseFloat(b.speed)-parseFloat(a.speed)
+            );
+            break;
+    }
+
+    return result;
+}
+
+function renderBrands() {
+
+    const container =
+        document.getElementById("brandFilters");
+
+    const brands =
+        [...new Set(bikes.map(bike => bike.brand))]
+        .sort();
+
+    container.innerHTML =
+        `<button class="filter active" data-brand="all">ALL</button>` +
+        brands.map(brand =>
+            `<button class="filter" data-brand="${escapeHTML(brand)}">
+                ${escapeHTML(brand.toUpperCase())}
+            </button>`
+        ).join("");
+
+    setActive(
+        "[data-brand]",
+        state.brand === "all"
+            ? container.querySelector('[data-brand="all"]')
+            : container.querySelector(
+                `[data-brand="${CSS.escape(state.brand)}"]`
+            )
+    );
+}
+
+function brokenImage(event) {
+
+    const img = event.target;
+
+    if (img.dataset.fallback) {
+        return;
+    }
+
+    img.dataset.fallback = "1";
+
+    img.src =
+        "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="800"
+             height="500"
+             viewBox="0 0 800 500">
+            <rect width="800" height="500" fill="#090d15"/>
+            <text x="400" y="235"
+                  text-anchor="middle"
+                  fill="#8792a4"
+                  font-family="Arial"
+                  font-size="28">
+                LZL MOTOBIKES
+            </text>
+            <text x="400" y="275"
+                  text-anchor="middle"
+                  fill="#22d3ee"
+                  font-family="Arial"
+                  font-size="15">
+                IMAGE UNAVAILABLE
+            </text>
+        </svg>
+        `);
+}
+
+function card(bike) {
+
+    return `
+    <article class="card">
+
+        <div class="card-image">
+
+            <img
+                src="${escapeHTML(bike.image)}"
+                alt="${escapeHTML(bike.brand + " " + bike.name)}"
+                loading="lazy"
+                onerror="brokenImage(event)"
+            >
+
+            <span class="card-tag">
+                ${escapeHTML(bike.type)}
+            </span>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="brand">
+                ${escapeHTML(bike.brand)}
+            </div>
+
+            <h3>${escapeHTML(bike.name)}</h3>
+
+            <div class="engine">
+                ${escapeHTML(bike.engine)}CC • ${escapeHTML(bike.color)}
+            </div>
+
+            <div class="specs">
+
+                <div class="spec">
+                    <span>POWER</span>
+                    <strong>${escapeHTML(bike.power)}</strong>
+                </div>
+
+                <div class="spec">
+                    <span>TORQUE</span>
+                    <strong>${escapeHTML(bike.torque)}</strong>
+                </div>
+
+                <div class="spec">
+                    <span>TOP SPEED</span>
+                    <strong>${escapeHTML(bike.speed)}</strong>
+                </div>
+
+            </div>
+
+            <button
+                class="view"
+                data-view="${escapeHTML(bike.id)}"
+            >
+                VIEW SPECIFICATIONS
+            </button>
+
+        </div>
+    </article>
+    `;
+}
+
+function render() {
+
+    const result = filteredBikes();
+
+    document.getElementById("motorcycleGrid").innerHTML =
+        result.map(card).join("");
+
+    document.getElementById("resultCount").textContent =
+        `${result.length} motorcycle${result.length === 1 ? "" : "s"} found`;
+
+    document.getElementById("heroCount").textContent =
+        String(bikes.length).padStart(2,"0");
+
+    document.getElementById("brandCount").textContent =
+        String(new Set(bikes.map(b => b.brand)).size).padStart(2,"0");
+}
+
+function setActive(selector,target) {
+
+    document.querySelectorAll(selector)
+        .forEach(button => {
+            button.classList.toggle(
+                "active",
+                button === target
+            );
+        });
+}
+
+function openDetails(id) {
+
+    const bike =
+        bikes.find(item => item.id === id);
+
+    if (!bike) return;
+
+    document.getElementById("detailsContent").innerHTML = `
+
+        <div class="detail-top">
+
+            <div class="detail-image">
+                <img
+                    src="${escapeHTML(bike.image)}"
+                    alt="${escapeHTML(bike.name)}"
+                    onerror="brokenImage(event)"
+                >
+            </div>
+
+            <div class="detail-info">
+
+                <div class="brand">
+                    ${escapeHTML(bike.brand)}
+                </div>
+
+                <h2>
+                    ${escapeHTML(bike.name)}
+                </h2>
+
+                <p>
+                    ${escapeHTML(bike.description)}
+                </p>
+
+                <div class="detail-stats">
+
+                    <div class="detail-stat">
+                        <span>TOP SPEED</span>
+                        <strong>${escapeHTML(bike.speed)}</strong>
+                    </div>
+
+                    <div class="detail-stat">
+                        <span>POWER</span>
+                        <strong>${escapeHTML(bike.power)}</strong>
+                    </div>
+
+                    <div class="detail-stat">
+                        <span>TORQUE</span>
+                        <strong>${escapeHTML(bike.torque)}</strong>
+                    </div>
+
+                    <div class="detail-stat">
+                        <span>ENGINE</span>
+                        <strong>${escapeHTML(bike.engine)} CC</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="detail-specs">
+
+            ${detailSpec("YEAR",bike.year)}
+            ${detailSpec("TYPE",bike.type)}
+            ${detailSpec("WEIGHT",bike.weight)}
+            ${detailSpec("FUEL",bike.fuel)}
+            ${detailSpec("TRANSMISSION",bike.transmission)}
+            ${detailSpec("COOLING",bike.cooling)}
+            ${detailSpec("OIL",bike.oil)}
+            ${detailSpec("COLOR",bike.color)}
+
+        </div>
+    `;
+
+    openModal("detailsModal");
+}
+
+function detailSpec(title,value) {
+
+    return `
+        <div class="detail-spec">
+            <span>${escapeHTML(title)}</span>
+            <strong>${escapeHTML(value)}</strong>
+        </div>
+    `;
+}
+
+function openModal(id) {
+    document.getElementById(id).classList.add("show");
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove("show");
+}
+
+function renderAdmin() {
+
+    const list =
+        document.getElementById("adminList");
+
+    list.innerHTML = bikes.map(bike => `
+
+        <div class="admin-item">
+
+            <img
+                src="${escapeHTML(bike.image)}"
+                alt=""
+                onerror="brokenImage(event)"
+            >
+
+            <div>
+                <strong>
+                    ${escapeHTML(bike.brand)} ${escapeHTML(bike.name)}
+                </strong>
+                <small>
+                    ${escapeHTML(bike.engine)} CC •
+                    ${escapeHTML(bike.color)}
+                </small>
+            </div>
+
+            <button
+                class="edit-btn"
+                data-edit="${escapeHTML(bike.id)}"
+            >
+                EDIT
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+function editBike(id) {
+
+    const bike =
+        bikes.find(item => item.id === id);
+
+    if (!bike) return;
+
+    editingId = id;
+
+    document.getElementById("editorTitle").textContent =
+        `EDIT ${bike.brand.toUpperCase()} ${bike.name.toUpperCase()}`;
+
+    document.getElementById("fBrand").value = bike.brand;
+    document.getElementById("fName").value = bike.name;
+    document.getElementById("fYear").value = bike.year;
+    document.getElementById("fEngine").value = bike.engine;
+    document.getElementById("fType").value = bike.type;
+    document.getElementById("fPower").value = bike.power;
+    document.getElementById("fTorque").value = bike.torque;
+    document.getElementById("fSpeed").value = bike.speed;
+    document.getElementById("fWeight").value = bike.weight;
+    document.getElementById("fFuel").value = bike.fuel;
+    document.getElementById("fTransmission").value = bike.transmission;
+    document.getElementById("fCooling").value = bike.cooling;
+    document.getElementById("fOil").value = bike.oil;
+    document.getElementById("fColor").value = bike.color;
+    document.getElementById("fImage").value = bike.image;
+    document.getElementById("fDescription").value = bike.description;
+
+    document.getElementById("deleteButton").style.display = "block";
+
+    openModal("editorModal");
+}
+
+function newBike() {
+
+    editingId = null;
+
+    document.getElementById("editorTitle").textContent =
+        "ADD MOTORCYCLE";
+
+    document.getElementById("editorForm").reset();
+
+    document.getElementById("fYear").value = 2026;
+
+    document.getElementById("deleteButton").style.display =
+        "none";
+
+    openModal("editorModal");
+}
+
+function collectForm() {
+
+    const brand =
+        document.getElementById("fBrand").value.trim();
+
+    const name =
+        document.getElementById("fName").value.trim();
+
+    return {
+
+        id: editingId ||
+            `${normalize(brand)}-${normalize(name)}-${Date.now()}`,
+
+        brand,
+
+        name,
+
+        year:
+            Number(document.getElementById("fYear").value),
+
+        engine:
+            Number(document.getElementById("fEngine").value),
+
+        type:
+            document.getElementById("fType").value.trim(),
+
+        power:
+            document.getElementById("fPower").value.trim(),
+
+        torque:
+            document.getElementById("fTorque").value.trim(),
+
+        speed:
+            document.getElementById("fSpeed").value.trim(),
+
+        weight:
+            document.getElementById("fWeight").value.trim(),
+
+        fuel:
+            document.getElementById("fFuel").value.trim(),
+
+        transmission:
+            document.getElementById("fTransmission").value.trim(),
+
+        cooling:
+            document.getElementById("fCooling").value.trim(),
+
+        oil:
+            document.getElementById("fOil").value.trim(),
+
+        color:
+            document.getElementById("fColor").value.trim(),
+
+        image:
+            document.getElementById("fImage").value.trim(),
+
+        description:
+            document.getElementById("fDescription").value.trim()
+    };
+}
+
+document.getElementById("searchInput")
+.addEventListener("input", event => {
+
+    state.search =
+        event.target.value.trim().toLowerCase();
+
+    render();
+});
+
+document.getElementById("sortSelect")
+.addEventListener("change", event => {
+
+    state.sort =
+        event.target.value;
+
+    render();
+});
+
+document.getElementById("engineFilters")
+.addEventListener("click", event => {
+
+    const button =
+        event.target.closest("[data-engine]");
+
+    if (!button) return;
+
+    state.engine =
+        button.dataset.engine;
+
+    setActive("[data-engine]",button);
+
+    render();
+});
+
+document.getElementById("brandFilters")
+.addEventListener("click", event => {
+
+    const button =
+        event.target.closest("[data-brand]");
+
+    if (!button) return;
+
+    state.brand =
+        button.dataset.brand;
+
+    setActive("[data-brand]",button);
+
+    render();
+});
+
+document.getElementById("motorcycleGrid")
+.addEventListener("click", event => {
+
+    const button =
+        event.target.closest("[data-view]");
+
+    if (!button) return;
+
+    openDetails(button.dataset.view);
+});
+
+document.getElementById("adminButton")
+.addEventListener("click", async () => {
+
+    const user = auth.currentUser;
+
+    if (user && user.email === ADMIN_EMAIL) {
+
+        renderAdmin();
+        openModal("adminModal");
+
+    } else {
+
+        document.getElementById("loginEmail").value =
+            ADMIN_EMAIL;
+
+        openModal("loginModal");
+    }
+});
+
+document.getElementById("loginForm")
+.addEventListener("submit", async event => {
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const error =
+        document.getElementById("loginError");
+
+    error.textContent = "";
+
+    try {
+
+        const result =
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+        if (result.user.email !== ADMIN_EMAIL) {
+
+            await signOut(auth);
+
+            error.textContent =
+                "This account does not have admin access.";
+
+            return;
+        }
+
+        closeModal("loginModal");
+
+        renderAdmin();
+
+        openModal("adminModal");
+
+    } catch(errorObject) {
+
+        console.error(errorObject);
+
+        error.textContent =
+            "Login failed. Check your email and password.";
+    }
+});
+
+document.getElementById("logoutButton")
+.addEventListener("click", async () => {
+
+    await signOut(auth);
+
+    closeModal("adminModal");
+});
+
+document.getElementById("adminList")
+.addEventListener("click", event => {
+
+    const button =
+        event.target.closest("[data-edit]");
+
+    if (!button) return;
+
+    editBike(button.dataset.edit);
+});
+
+document.getElementById("addBikeButton")
+.addEventListener("click",newBike);
+
+document.getElementById("editorForm")
+.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const bike = collectForm();
+
+    if (editingId) {
+
+        const index =
+            bikes.findIndex(item => item.id === editingId);
+
+        if (index !== -1) {
+            bikes[index] = bike;
+        }
+
+    } else {
+
+        bikes.push(bike);
+    }
+
+    saveBikes();
+
+    renderBrands();
+    render();
+    renderAdmin();
+
+    closeModal("editorModal");
+    openModal("adminModal");
+});
+
+document.getElementById("deleteButton")
+.addEventListener("click", () => {
+
+    if (!editingId) return;
+
+    const bike =
+        bikes.find(item => item.id === editingId);
+
+    if (!bike) return;
+
+    const confirmed =
+        confirm(`Delete ${bike.brand} ${bike.name}?`);
+
+    if (!confirmed) return;
+
+    bikes =
+        bikes.filter(item => item.id !== editingId);
+
+    saveBikes();
+
+    editingId = null;
+
+    renderBrands();
+    render();
+    renderAdmin();
+
+    closeModal("editorModal");
+});
+
+document.querySelectorAll(".modal")
+.forEach(modal => {
+
+    modal.addEventListener("click", event => {
+
+        if (event.target === modal) {
+            modal.classList.remove("show");
+        }
+
+    });
+
+});
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        document.querySelectorAll(".modal.show")
+            .forEach(modal =>
+                modal.classList.remove("show")
+            );
+    }
+
+});
+
+onAuthStateChanged(auth,user => {
+
+    if (user && user.email === ADMIN_EMAIL) {
+        console.log("LZL Admin authenticated.");
+    }
+
+});
+
+renderBrands();
+render();
+
+</script>
+
+</body>
+</html>
